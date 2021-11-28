@@ -19,7 +19,7 @@ const Input: React.FC<props> = (props) => {
                 <p className="font-medium text-gray-400">{unit}</p>
             </div>
             <input
-                className="w-full mb-6 border-2 border-gray-300 focus:border-gray-900 rounded-button outline-none text-gray-900 lg:text-lg px-4 py-3"
+                className="w-full h-10 mb-6 border-2 border-gray-300 focus:border-gray-900 rounded-button outline-none text-gray-900 lg:text-lg px-4 py-3"
                 placeholder={placeHolder ? placeHolder : name}
                 type={"text"}
                 inputMode={type === "number" ? "decimal" : "text"}

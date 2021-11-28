@@ -7,24 +7,22 @@ import { decodeZilPayError } from "./decodeMessage";
 
 const deleteListingTransition = async (
     contract: any,
-    zilPay: any,
+    web3: any,
     id: string | undefined
 ) => {
     try {
-        const callTransition = await contract.call(
-            "Burn",
-            [
-                {
-                    vname: "token_id",
-                    type: "Uint256",
-                    value: id,
-                },
-            ],
-            getCallParameters(zilPay)
-        );
-        transitionMessageAlert(zilPay, callTransition.ID, "Deleting listing");
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods.burn(id).send({from : accounts[0]}, function (err:any, res:any) {
+            if (err) {
+              console.log("An error occured", err)
+              return
+            }
+            console.log(res);
+            });
+
+        // transitionMessageAlert(zilPay, callTransition.ID, "Deleting listing");
     } catch (error) {
-        toast.error(decodeZilPayError(error));
+        // toast.error(decodeZilPayError(error));
     }
 };
 

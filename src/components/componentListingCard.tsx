@@ -33,24 +33,15 @@ const ListingCard: React.FC<props> = (props) => {
                     backgroundSize: "cover",
                 }}
             >
-                    <div>
-                        <div className="px-2 py-1 bg-gray-200 text-gray-600 rounded uppercase text-xs tracking-wide font-semibold">
-                            {royalty_type}
-                        </div>
+                <div>
+                    <div className="px-2 py-1 bg-gray-200 text-gray-600 rounded uppercase text-xs tracking-wide font-semibold">
+                        {royalty_type}
                     </div>
+                </div>
             </div>
-            {/* <div className="flex items-center text-base font-light text-gray-600">
-                <p>
-                    {rooms} Room{rooms > 1 ? "s" : ""}
-                </p>
-                <div className="w-1 h-1 bg-gray-500 rounded-full mx-2"></div>
-                <p>
-                    {bathrooms} Bathroom{bathrooms > 1 ? "s" : ""}
-                </p>
-            </div> */}
             <h3 className="text-gray-900 text-xl">{name}</h3>
             <p className="text-gray-900 font-semibold">
-                {price} ZIL
+                {price} ETH
                 <span className="text-gray-600 font-light"></span>
             </p>
         </div>
