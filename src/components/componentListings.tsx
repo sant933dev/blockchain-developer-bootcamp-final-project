@@ -9,16 +9,25 @@ import CreateListingModal from "./componentCreateListingModal";
 import ListingCard from "./componentListingCard";
 import ManageListingModal from "./componentManageListingModal";
 import ImageGrid from "./componentImageGrid";
+import { useWeb3React  } from "@web3-react/core"
+import { NFTCOSMOS_ABI, NFTCOSMOS_ADDRESS } from "../config";
+import Web3 from 'web3'
 
-const Listings: React.FC = () => {
+
+
+const Listings: React.FC = (props) => {
     const [showCreateListing, setShowCreateListing] = useState<boolean>(false);
     const [showManageListing, setShowManageListing] = useState<boolean>(false);
     const [modalListing, setModalListing] = useState<any | undefined>(
         undefined
     );
     const [listings, setListings] = useState<any | undefined>(undefined);
-    const [count, setCount] = useState<any | undefined>(0);
     const history = useHistory();
+    const {contract} = ContextContainer.useContainer();
+    let {
+    library,
+    active,
+    account} = useWeb3React();
 
     const hostedListings = listings?.filter((listing: any) => {
         return listing.user_is_host;
@@ -29,13 +38,13 @@ const Listings: React.FC = () => {
     });
 
 
-    useEffect(() => {
-        if (count > 0) return;
-        setListings(
-            formatListings()
-        );
-        setCount(1);
-    }, [listings, count]);
+    useEffect(() => { 
+        if(!active) return;
+        const web3 = new Web3(library);
+        let contract = new library.eth.Contract(NFTCOSMOS_ABI as any, NFTCOSMOS_ADDRESS, account);
+        formatListings(contract, account, web3).then((value) => {setListings(value)});
+        console.log("set");
+    },[active, account]);
 
     return (
         <div className="container mx-auto px-4 lg:px-2 pb-10">
@@ -45,7 +54,6 @@ const Listings: React.FC = () => {
             {nonHostedListings ? (
                 <>
                     {nonHostedListings.length > 0 ? (
-                        <>
                             <div className="grid md:grid-cols-5 gap-6">
                                 {nonHostedListings.map((listing: any, index: number) => {
                                     return (
@@ -60,7 +68,6 @@ const Listings: React.FC = () => {
                                     );
                                 })}
                             </div>
-                        </>
                     ) : (
                         <p className="text-xl text-center">No listings</p>
                     )}
@@ -72,16 +79,28 @@ const Listings: React.FC = () => {
                         </h1>
                     </div>
                     {hostedListings.length > 0 ? (
-                        <div className="grid md:grid-cols-5 gap-6">
+                        <div className="grid md:grid-cols-5 gap-8 ">
                             {hostedListings.map(
                                 (listing: any, index: number) => {
                                     return (
                                         <ImageGrid
                                             {...listing}
+                                            onClick={() => {
+                                                history.push(
+                                                    `/poll/${listing.id}`
+                                                );
+                                            }}
                                         />
                                     );
                                 }
                             )}
+                            {nonHostedListings.map((listing: any, index: number) => {
+                                    return (
+                                        <ImageGrid
+                                            {...listing}
+                                        />
+                                    );
+                                })}
                         </div>
                     ) : (
                         <p className="text-xl text-center">
@@ -145,10 +164,10 @@ const Listings: React.FC = () => {
             ) : (
                 <p className="text-xl text-center">Please connect To Wallet</p>
             )}
-            <CreateListingModal
+           <CreateListingModal
                 {...{ showCreateListing, setShowCreateListing }}
             />
-            {modalListing && (
+             {modalListing && (
                 <ManageListingModal
                     {...{
                         modalListing,

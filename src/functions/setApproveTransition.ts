@@ -7,29 +7,25 @@ import { decodeZilPayError } from "./decodeMessage";
 
 const setApproveTransition = async (
     contract: any,
-    zilPay: any,
-    id: string
+    web3: any,
+    id: string,
+    buyerAddress: any
 ) => {
     try {
-        const callTransition = await contract.call(
-            "SetOperatorForAll",
-            [
-                {
-                    vname: "to",
-                    type: "ByStr20",
-                    value: "0xa675aaF2ACE34Ef2858fcE869abD5Af80535CA42",
-                },
-                // {
-                //     vname: "token_id",
-                //     type: "Uint256",
-                //     value: parseInt(id),
-                // },
-            ],
-            getCallParameters(zilPay)
-        );
-        transitionMessageAlert(zilPay, callTransition.ID, "Providing Operator Previleges!");
+        const accounts = await web3.eth.getAccounts();
+        contract.methods.approve(buyerAddress, id).send({ from: accounts[0] }, function (err: any, res: any) {
+            if (err) {
+                console.log("An error occured", err)
+                return
+            }
+            console.log(res);
+        });
+
+
+
+        //transitionMessageAlert(zilPay, callTransition.ID, "Providing Operator Previleges!");
     } catch (error) {
-        toast.error(decodeZilPayError(error));
+        //toast.error(decodeZilPayError(error));
     }
 };
 

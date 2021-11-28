@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.2;
 
-import "@openzeppelin/contracts@4.4.0/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts@4.4.0/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts@4.4.0/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts@4.4.0/access/Ownable.sol";
-import "@openzeppelin/contracts@4.4.0/utils/Counters.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 contract CosmoToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
