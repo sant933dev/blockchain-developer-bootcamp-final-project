@@ -14,7 +14,7 @@ const bookListingTransition = async (
 ) => {
     try {
         const accounts = await web3.eth.getAccounts();
-        contract.methods.buy(id).send({from:accounts[0], value:500000000}, function (err:any, res:any) {
+        contract.methods.buy(id).send({from:accounts[0], value:5000000000000000}, function (err:any, res:any) {
             if (err) {
               console.log("An error occured", err)
               return
