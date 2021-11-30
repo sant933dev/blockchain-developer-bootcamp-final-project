@@ -8,32 +8,24 @@ import getCurrentUser from "../functions/getCurretUser";
 
 const bookListingTransition = async (
     contract: any,
-    zilPay: any,
+    web3: any,
     id: string,
-    amount: string,
-    buyerAddress: string,
+    amount: number
 ) => {
     try {
-        const current_user = getCurrentUser(undefined, zilPay);
-        const callTransition = await contract.call(
-            "TransferFrom",
-            [
-                {
-                    vname: "to",
-                    type: "ByStr20",
-                    value: buyerAddress,
-                },
-                {
-                    vname: "token_id",
-                    type: "Uint256",
-                    value: id,
-                },
-            ],
-            getCallParameters(zilPay, amount)
-        );
-        transitionMessageAlert(zilPay, callTransition.ID, "Purchasing");
+        const accounts = await web3.eth.getAccounts();
+        contract.methods.buy(id).send({from:accounts[0], value:5000000000000000}, function (err:any, res:any) {
+            if (err) {
+              console.log("An error occured", err)
+              return
+            }
+            console.log(res);
+          });
+        
+        
+        //transitionMessageAlert(zilPay, callTransition.ID, "Purchasing");
     } catch (error) {
-        toast.error(decodeZilPayError(error));
+        //toast.error(decodeZilPayError(error));
     }
 };
 

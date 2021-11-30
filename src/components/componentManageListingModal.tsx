@@ -7,6 +7,9 @@ import setApproveTransition from "../functions/setApproveTransition";
 import Button from "./componentButton";
 import Input from "./componentInput";
 import Modal from "./componentModal";
+import { useWeb3React  } from "@web3-react/core"
+import { NFTCOSMOS_ABI, NFTCOSMOS_ADDRESS } from "../config";
+import Web3 from 'web3'
 
 /*
 ManageListingModal Component
@@ -25,78 +28,57 @@ type props = {
 const ManageListingModal: React.FC<props> = (props) => {
     const { showManageListing, setShowManageListing, modalListing } = props;
     const { id, accumulated_rent } = modalListing;
-
-    const [name, setName] = useState<string | undefined>(undefined);
-    const [description, setDescription] = useState<string | undefined>(
-        undefined
-    );
+    
     const [price, setPrice] = useState<string | undefined>(undefined);
-    const [rooms, setRooms] = useState<string | undefined>(undefined);
-    const [bathrooms, setBathrooms] = useState<string | undefined>(undefined);
-    const [location, setLocation] = useState<string | undefined>(undefined);
     const [image, setImage] = useState<string | undefined>(undefined);
+    const [web3, setWeb3] = useState<any | undefined>(undefined);
+    const [contract, setContract] = useState<any | undefined>(undefined);
+    const [buyerAddress, setBuyerAddress] = useState<string | undefined>(undefined);
+    let {
+        library,
+        active,
+        account} = useWeb3React();
+       
 
-    const [wifi, setWifi] = useState<boolean>(false);
-    const [kitchen, setKitchen] = useState<boolean>(false);
-    const [tv, setTv] = useState<boolean>(false);
-    const [laundry, setLaundry] = useState<boolean>(false);
-    const [hvac, setHvac] = useState<boolean>(false);
+        useEffect(() => {
+            setPrice(modalListing.price);
+            setImage(modalListing.image);
+            const web3 = new Web3(library);
+            setWeb3(web3);
+            let contract = new library.eth.Contract(NFTCOSMOS_ABI as any, NFTCOSMOS_ADDRESS, account); 
+            setContract(contract);       
+        }, [showManageListing]);
+        
+
 
     const updateListing = () => {
         if (
-            !name ||
-            !description ||
+            !id ||
             !price ||
-            !rooms ||
-            !bathrooms ||
-            !location ||
             !image
         )
             return;
+        
         updateListingTransition(
-            undefined,
-            undefined,
+            contract,
+            web3,
             id,
-            name,
-            description,
             price,
-            rooms,
-            bathrooms,
             image,
-            location,
-            wifi,
-            kitchen,
-            tv,
-            laundry,
-            hvac
         );
     };
 
-    const claimRent = () => {
-        claimRentTransition(undefined, undefined, id);
-        setShowManageListing(false);
-    };
-
     const deleteListing = () => {
-        deleteListingTransition(undefined, undefined, id);
+        deleteListingTransition(contract, web3, id);
         setShowManageListing(false);
     };
 
     const setApprover = () => {
-        setApproveTransition(undefined, undefined, id);
+        setApproveTransition(contract, web3, id, buyerAddress);
         setShowManageListing(false);
     };
 
-    useEffect(() => {
-        setName(modalListing.name);
-        setDescription(modalListing.description);
-        setPrice(modalListing.price);
-        setRooms(modalListing.rooms);
-        setBathrooms(modalListing.bathrooms);
-        setLocation(modalListing.location);
-        setImage(modalListing.image);
-    }, [showManageListing]);
-
+   
     return (
         <Modal
             title="Manage Listing"
@@ -117,24 +99,7 @@ const ManageListingModal: React.FC<props> = (props) => {
                     modal
                 />
             </>
-            {/* <Input name="Name" value={name} setValue={setName} /> */}
-            {/* <Input
-                name="Description"
-                value={description}
-                setValue={setDescription}
-            /> */}
-            {/* <Input
-                name="Rooms"
-                value={rooms}
-                type="number"
-                setValue={setRooms}
-            /> */}
-            {/* <Input
-                name="Bathrooms"
-                value={bathrooms}
-                type="number"
-                setValue={setBathrooms}
-            /> */}
+            
             <Input
                 name="Price"
                 unit="ZIL"
@@ -148,14 +113,14 @@ const ManageListingModal: React.FC<props> = (props) => {
                 type="text"
                 setValue={setImage}
             />
-            {/* <Input
-                name="Image URL"
-                value={image}
+            <Input
+                name="Buyer Address"
+                value={buyerAddress}
                 type="text"
-                setValue={setImage}
-            /> */}
+                setValue={setBuyerAddress}
+            />
             <Button
-                    text={"Approve Operator"}
+                    text={"Approve Buyer"}
                     onClick={setApprover}
                     white
                     padding
@@ -163,26 +128,7 @@ const ManageListingModal: React.FC<props> = (props) => {
                 />
 
 
-            {/* <Input
-                name="Google Maps Plus Code"
-                value={location}
-                type="text"
-                setValue={setLocation}
-            />
-            <AmenitiesInput
-                {...{
-                    wifi,
-                    setWifi,
-                    kitchen,
-                    setKitchen,
-                    tv,
-                    setTv,
-                    laundry,
-                    setLaundry,
-                    hvac,
-                    setHvac,
-                }}
-            /> */}
+            
         </Modal>
     );
 };

@@ -13,44 +13,61 @@ import {
 } from "react-router-dom";
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
+import Poll from './components/componentPoll';
+import { NFTCOSMOS_ABI, NFTCOSMOS_ADDRESS } from "./config";
+import { useWeb3React,  } from "@web3-react/core"
+
 
 
 const App: React.FC = () => {
+    const { setContract } = ContextContainer.useContainer();
 
-    const [showSignUp, setShowSignUp] = useState<boolean>(false);
+    
 
-    function getLibrary(provider:any) {
-        return new Web3(provider)
-      }
+    function getLibrary(provider: any) {
+        let webProvider = new Web3(provider);
+        return webProvider;
+    }
+
 
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
-        <div className="rentonzilliqa">
-            <Router>
-                <Header {...{ setShowSignUp }} />
-                <main>
-                   <Switch>
-                        <Route path="/" exact>
+            <div className="rentonzilliqa">
+                <Header />
+                <div><Router>
+                    <main>
+                        <Switch>
+                            <Route path="/" exact>
+                                <Redirect to={"/listings"} />
+                            </Route>
+                            <Route path="/listings">
+                                <Listings />
+                            </Route>
+                            <Route path="/listing/:id">
+                                <Listing />
+                            </Route>
+                            <Route path="/poll/:id">
+                                <Poll />
+                            </Route>
                             <Redirect to={"/listings"} />
-                        </Route>
-                        <Route path="/listings">
-                            <Listings />
-                        </Route>
-                        <Route path="/listing/:id">
-                            <Listing />
-                        </Route>
-                        <Redirect to={"/listings"} />
-                    </Switch>
-                </main> 
-            </Router>
-            <Toaster
-                toastOptions={{
-                    success: { duration: 6000 },
-                    error: { duration: 8000 },
-                    loading: { duration: 130000 },
-                }}
-            />
-        </div>
+                        </Switch>
+                    </main>
+                </Router>
+                <Toaster
+                    toastOptions={{
+                        success: { duration: 6000 },
+                        error: { duration: 8000 },
+                        loading: { duration: 130000 },
+                    }}
+                />
+                </div> 
+                {/* : 
+                 (
+                    <main className="h-screen flex justify-center items-center text-xl">
+                        Please install ZilPay
+                    </main>
+                )} */}
+            </div>
         </Web3ReactProvider>
     );
 };

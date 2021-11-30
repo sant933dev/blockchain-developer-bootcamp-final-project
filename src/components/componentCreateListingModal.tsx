@@ -4,6 +4,9 @@ import createListingTransition from "../functions/createListingTransition";
 import Input from "./componentInput";
 import Modal from "./componentModal";
 import Tick from "./componentTick";
+import { useWeb3React  } from "@web3-react/core"
+import { NFTCOSMOS_ABI, NFTCOSMOS_ADDRESS } from "../config";
+import Web3 from 'web3'
 
 type props = {
     showCreateListing: boolean;
@@ -16,20 +19,23 @@ const CreateListingModal: React.FC<props> = (props) => {
     const [royaltyType, setRoyaltyType] = useState<string>("1");
     const [royaltyValue, setRoyaltyValue] = useState<string>("0");
     const [price, setPriceValue] = useState<string>("0");
-    // const { contract, zilPay } = ContextContainer.useContainer();
+    let {library, active, account} = useWeb3React();
 
     const createListing = () => {
         if (
             !image
         )
             return;
+        const web3 = new Web3(library);
+        let contract = new library.eth.Contract(NFTCOSMOS_ABI as any, NFTCOSMOS_ADDRESS);
         createListingTransition(
+            contract,
             image,
             royaltyType,
             royaltyValue,
             price,
-            undefined,
-            undefined
+            account,
+            web3,
         );
     };
 

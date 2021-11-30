@@ -39,7 +39,9 @@ const SignUpModal: React.FC<props> = (props) => {
     useEffect(() => {
         setName(undefined);
         setUserRole("host");
-    }, [setShowSignUp]);
+    }, [
+      
+    ]);
 
     return (
         <div>

@@ -1,21 +1,15 @@
-/*
-Takes the multiple Map objects in the contract state and returns a handy user object.
-Checks if user is host and if listing is rented.
-Prices and rent are converted from Qa.
-Amenities are converted to bool.
-*/
 
-const formatListings = (
+
+const formatListings = async(
+    contract: any,
+    account: any,
+    web3: any
 ) => {
-    //  let {
-    // //     listing,
-    // //     listing_price,
-    //      token_uris,
-    //      token_royalty_type ,
-    //      token_sale_price,
-    //      token_owners,       
-    //  } = contractState;
 
+    
+    let contractResponse = new Array();
+     
+    
     const token_names = new Map();
     token_names.set(1,"Nature Paiting");
     token_names.set(2,"Evening Path");
@@ -43,6 +37,28 @@ const formatListings = (
             return "No Royalty";
         }
     };
+    
+const accounts = await web3.eth.getAccounts();
+await contract.methods.getTokenUris().call({from: accounts[0]},function (err:any, res:any) {
+        if (err) {
+          console.log("An error occured", err)
+          return
+        }
+        res.forEach((element:any) => {
+            if(element.tokenUri){
+                contractResponse.push({
+                    id: element.tokenId,
+                    name: element.tokenId,
+                    image: element.tokenUri,
+                    royalty_type: getRoyaltyType(element.royaltyType),
+                    price: element.price,
+                    user_is_host: account == element.owner,
+                })
+            }
+        });
+      })
+
+
     let formattedListings: { id: any; name: string; image: any; royalty_type: string; price: any; user_is_host: boolean; }[] = [];
     token_uris.forEach(
         (value, key, map) => {
@@ -57,7 +73,7 @@ const formatListings = (
         }
     );
 
-    return formattedListings;
+    return contractResponse;
 
 }
 
