@@ -39,7 +39,7 @@ const ListingCard: React.FC<props> = (props) => {
                     </div>
                 </div>
             </div>
-            <h3 className="text-gray-900 text-xl">{name}</h3>
+            {/* <h3 className="text-gray-900 text-xl">{name}</h3> */}
             <p className="text-gray-900 font-semibold">
                 {price} ETH
                 <span className="text-gray-600 font-light"></span>

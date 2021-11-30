@@ -63,7 +63,6 @@ const Listing: React.FC = () => {
                 <div className="container mx-auto px-4 lg:px-2 pb-20">
                     <div className="pt-20 pb-10">
                         <h1 className="text-gray-900 text-3xl font-medium">
-                            {listing.name}
                         </h1>
                     </div>
                     <div className="grid lg:grid-cols-3 gap-12 relative">
@@ -72,17 +71,14 @@ const Listing: React.FC = () => {
                                 className="rounded-xl bg-gray-100"
                                 src={listing.image}
                             />
-                            <div className="max-w-prose mt-20 mb-12">
-                                <h2 className="text-2xl font-medium text-gray-900 pb-4">
-                                    About
-                                </h2>
-                                <p className="text-gray-700">
-                                    {listing.description}
-                                </p>
-                            </div>
                         </div>
 
                         <div className="order-1">
+                        <div className="text-center">
+                                    <p className="mt-4 mb-8 text-xl text-gray-900 font-medium">
+                                        {listing.price} ETH
+                                    </p>
+                                </div>
                             <div className="sticky top-32 p-6 rounded-xl border-2 w-full">
                                 <Button
                                     modal
