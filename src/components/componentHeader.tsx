@@ -21,15 +21,13 @@ const Header: React.FC = () => {
     }
 
     return (
-        <header className="bg-gray-900 sticky top-0 z-10 h-20">
+        <header className="bg-gray-900 sticky top-0 z-10">
             <div className="container mx-auto px-4 lg:px-2 py-3 flex justify-between items-center">
             <span
                     className="text-white text-2xl font-medium cursor-pointer"
                 >
                 NFT Cosmos
-            </span>    
-                {/* <Input
-                    name="" value="" setValue={setSearchString} placeHolder="Search" /> */}
+            </span>   
                 {active ?
                     (<b className="text-white font-small text-sm">
                         {account}

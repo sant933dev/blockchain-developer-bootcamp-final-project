@@ -13,14 +13,15 @@ const setApproveTransition = async (
 ) => {
     try {
         const accounts = await web3.eth.getAccounts();
-        contract.methods.approve(buyerAddress, id).send({ from: accounts[0] }, function (err: any, res: any) {
-            if (err) {
-                console.log("An error occured", err)
-                return
-            }
-            console.log(res);
-        });
-
+        contract.methods.approve(buyerAddress, id).send({ from: accounts[0] })
+        .on('transactionHash', function (hash: any) {
+            toast.loading("Approval in process!");
+          })
+          .on('error', toast.error)
+          .then(function (value: any) {
+            toast.success("Buyer Approved!");
+            window.location.href = "/listings";
+          });
 
 
         //transitionMessageAlert(zilPay, callTransition.ID, "Providing Operator Previleges!");

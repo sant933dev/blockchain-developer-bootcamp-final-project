@@ -88,31 +88,6 @@ const ManageListingModal: React.FC<props> = (props) => {
             onClick={updateListing}
         >
             <>
-                <h4 className="text-sm font-semibold text-gray-500 tracking-wide uppercase py-4">
-                    Delete Listing
-                </h4>
-                <Button
-                    text={"Delete Listing"}
-                    onClick={deleteListing}
-                    alert
-                    padding
-                    modal
-                />
-            </>
-            
-            <Input
-                name="Price"
-                unit="ZIL"
-                value={price}
-                type="number"
-                setValue={setPrice}
-            />
-            <Input
-                name="Image URL"
-                value={image}
-                type="text"
-                setValue={setImage}
-            />
             <Input
                 name="Buyer Address"
                 value={buyerAddress}
@@ -122,10 +97,42 @@ const ManageListingModal: React.FC<props> = (props) => {
             <Button
                     text={"Approve Buyer"}
                     onClick={setApprover}
-                    white
+                    green
                     padding
                     modal
                 />
+               
+            </>
+
+            <div className="py-4"></div>
+            
+            <Input
+                name="Price"
+                unit="ETH"
+                value={price}
+                type="number"
+                setValue={setPrice}
+                disabled
+            />
+            <Input
+                name="Image URL"
+                value={image}
+                type="text"
+                setValue={setImage}
+                disabled
+            />
+           
+
+<h4 className="text-sm font-semibold text-gray-500 tracking-wide uppercase py-4">
+                    Delete Listing
+                </h4>
+                <Button
+                    text={"Delete Listing"}
+                    onClick={deleteListing}
+                    alert
+                    padding
+                    modal
+                />    
 
 
             

@@ -74,16 +74,19 @@ const Listing: React.FC = () => {
                         </div>
 
                         <div className="order-1">
-                        <div className="text-center">
-                                    <p className="mt-4 mb-8 text-xl text-gray-900 font-medium">
-                                        {listing.price} ETH
+                                
+                            <div className="sticky top-32 p-6 rounded-xl border-2 w-full">
+                            <div className="text-center">
+                                    
+                                    <p className="mt-4 mb-8 text-xl text-gray-900 font-bold">
+                                        Price : 
+                                        <span className="mt-4 mb-8 text-xl text-pink-700 font-medium"> {listing.price} ETH </span>
                                     </p>
                                 </div>
-                            <div className="sticky top-32 p-6 rounded-xl border-2 w-full">
                                 <Button
                                     modal
                                     onClick={buyItem}
-                                    text="Purchase"
+                                    text="Request Purchase !"
                                 />
                             </div>
                         </div>

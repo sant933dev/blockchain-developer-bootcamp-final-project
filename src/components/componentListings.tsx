@@ -72,46 +72,6 @@ const Listings: React.FC = (props) => {
                         <p className="text-xl text-center">No listings</p>
                     )}
 
-
-                    <div className="pt-16 pb-5 flex justify-between items-center">
-                        <h1 className="text-gray-900 text-2xl font-medium">
-                            Ongoing Polls
-                        </h1>
-                    </div>
-                    {hostedListings.length > 0 ? (
-                        <div className="grid md:grid-cols-5 gap-8 ">
-                            {hostedListings.map(
-                                (listing: any, index: number) => {
-                                    return (
-                                        <ImageGrid
-                                            {...listing}
-                                            onClick={() => {
-                                                history.push(
-                                                    `/poll/${listing.id}`
-                                                );
-                                            }}
-                                        />
-                                    );
-                                }
-                            )}
-                            {nonHostedListings.map((listing: any, index: number) => {
-                                    return (
-                                        <ImageGrid
-                                            {...listing}
-                                        />
-                                    );
-                                })}
-                        </div>
-                    ) : (
-                        <p className="text-xl text-center">
-                            No listings
-                        </p>
-                    )}
-
-
-
-
-
                     <div className="pt-16 pb-5 flex justify-between items-center">
                         <h1 className="text-gray-900 text-2xl font-medium">
                             Your Tokens
@@ -119,11 +79,6 @@ const Listings: React.FC = (props) => {
                         <div className="flex items-center space-between">
                             <Button
                                 text={"Create a token"}
-                                onClick={() => setShowCreateListing(true)}
-                            />
-                            <div className="px-5" ></div>
-                            <Button
-                                text={"Start Poll"}
                                 onClick={() => setShowCreateListing(true)}
                             />
                         </div>

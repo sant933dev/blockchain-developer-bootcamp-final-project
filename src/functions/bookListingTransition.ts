@@ -14,16 +14,16 @@ const bookListingTransition = async (
 ) => {
     try {
         const accounts = await web3.eth.getAccounts();
-        contract.methods.buy(id).send({from:accounts[0], value:5000000000000000}, function (err:any, res:any) {
-            if (err) {
-              console.log("An error occured", err)
-              return
-            }
-            console.log(res);
+        let price = web3.utils.toWei(amount, 'ether');
+        contract.methods.buy(id).send({from:accounts[0], value : price})
+        .on('transactionHash', function (hash: any) {
+            toast.loading("Purchase in process!");
+          })
+          .on('error', toast.error)
+          .then(function (value: any) {
+            toast.success("Purchased!");
+            window.location.href = "/listings";
           });
-        
-        
-        //transitionMessageAlert(zilPay, callTransition.ID, "Purchasing");
     } catch (error) {
         //toast.error(decodeZilPayError(error));
     }

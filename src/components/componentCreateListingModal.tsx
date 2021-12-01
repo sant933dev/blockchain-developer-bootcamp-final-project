@@ -48,7 +48,7 @@ const CreateListingModal: React.FC<props> = (props) => {
 
     return (
         <Modal
-            title="Post your Creation"
+            title="Post your creation"
             visible={showCreateListing}
             setVisible={setShowCreateListing}
             buttonText={"Post!"}
@@ -60,12 +60,14 @@ const CreateListingModal: React.FC<props> = (props) => {
                 type="text"
                 setValue={setImage}
         />
-            <div className="flex gap-12 mb-8">
+         <h4 className="font-semibold text-gray-500 text-xs tracking-wide uppercase">
+                    Royalty</h4>
+            <div className="flex grid md:grid-cols-2 gap-12 mb-8">
                  <div
                         className="flex justify-center items-center cursor-pointer"
                         onClick={() => setRoyaltyType("1")}
                     >
-                        <p className="text-lg text-gray-800 pr-4">No Royalty</p>
+                        
                         <div
                             className={`p-1 bg-gray-200 rounded-lg w-8 h-8 hover:scale-95 transform transition-all 
                             ${
@@ -80,12 +82,13 @@ const CreateListingModal: React.FC<props> = (props) => {
                                 {royaltyType === "1" && <Tick />}
                             </div>
                         </div>
+                        <p className="text-lg text-gray-800 pr-4 px-4">No Royalty</p>
                     </div>
                     <div
                         className="flex justify-center items-center cursor-pointer"
                         onClick={() => setRoyaltyType("2")}
                     >
-                        <p className="text-lg text-gray-800 pr-4">Creator Royalty</p>
+                       
                         <div
                             className={`p-1 bg-gray-200 rounded-lg w-8 h-8 hover:scale-95 transform transition-all ${
                                 royaltyType == "2" ? "" : "hover:bg-gray-300"
@@ -101,27 +104,7 @@ const CreateListingModal: React.FC<props> = (props) => {
                                 {royaltyType === "2" && <Tick />}
                             </div>
                         </div>
-                    </div>
-                    <div
-                        className="flex justify-center items-center cursor-pointer"
-                        onClick={() => setRoyaltyType("3")}
-                    >
-                        <p className="text-lg text-gray-800 pr-4">Chained Royalty</p>
-                        <div
-                            className={`p-1 bg-gray-200 rounded-lg w-8 h-8 hover:scale-95 transform transition-all ${
-                                royaltyType == "3" ? "" : "hover:bg-gray-300"
-                            }`}
-                        >
-                            <div
-                                className={`w-full h-full rounded transition-colors text-transparent ${
-                                    royaltyType == "3"
-                                        ? "bg-gray-900 text-gray-200"
-                                        : ""
-                                }`}
-                            >
-                                {royaltyType === "3" && <Tick />}
-                            </div>
-                        </div>
+                        <p className="text-lg text-gray-800 pr-4 px-4 ">Creator Royalty</p>
                     </div>
                 </div>
 
@@ -131,6 +114,7 @@ const CreateListingModal: React.FC<props> = (props) => {
                 value={royaltyValue}
                 type="number"
                 setValue={setRoyaltyValue}
+                unit="%"
             />  
 
             <Input
@@ -138,6 +122,7 @@ const CreateListingModal: React.FC<props> = (props) => {
                 value={price}
                 type="number"
                 setValue={setPriceValue}
+                unit="ETH"
             />    
         </Modal>
     );

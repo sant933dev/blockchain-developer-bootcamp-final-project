@@ -7,10 +7,11 @@ type props = {
     setValue(value: string): void;
     type?: string;
     placeHolder?: string;
+    disabled?: boolean;
 };
 
 const Input: React.FC<props> = (props) => {
-    const { name, unit = "", value = "", setValue, type = "text", placeHolder } = props;
+    const { name, unit = "", value = "", setValue, type = "text", placeHolder , disabled = false} = props;
 
     return (
         <div className="">
@@ -19,13 +20,16 @@ const Input: React.FC<props> = (props) => {
                 <p className="font-medium text-gray-400">{unit}</p>
             </div>
             <input
-                className="w-full h-10 mb-6 border-2 border-gray-300 focus:border-gray-900 rounded-button outline-none text-gray-900 lg:text-lg px-4 py-3"
+                className={`w-full h-10 mb-6  border-gray-300 focus:border-gray-900 rounded-button outline-none text-gray-900 lg:text-lg px-4 py-3 
+                ${disabled ? "bg-white border-0" : "border-2"}
+                `}
                 placeholder={placeHolder ? placeHolder : name}
                 type={"text"}
                 inputMode={type === "number" ? "decimal" : "text"}
                 min={type === "number" ? 1 : undefined}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                disabled={disabled}
             ></input>
         </div>
     );

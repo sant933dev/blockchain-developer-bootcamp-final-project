@@ -16,25 +16,35 @@ import Web3 from 'web3'
 import Poll from './components/componentPoll';
 import { NFTCOSMOS_ABI, NFTCOSMOS_ADDRESS } from "./config";
 import { useWeb3React,  } from "@web3-react/core"
+import detectEthereumProvider from '@metamask/detect-provider'
+import { InjectedConnector } from '@web3-react/injected-connector'
+
+declare let window: any;
 
 
 
 const App: React.FC = () => {
     const { setContract } = ContextContainer.useContainer();
+    let {
+        library,
+        active,
+        account,
+        activate} = useWeb3React();
+
+        useEffect(() => { 
+            if (window.ethereum) {
+                activate(new InjectedConnector({
+                    supportedChainIds: [3],
+                  }));
+             }
+        },[]);    
 
     
-
-    function getLibrary(provider: any) {
-        let webProvider = new Web3(provider);
-        return webProvider;
-    }
-
-
     return (
-        <Web3ReactProvider getLibrary={getLibrary}>
             <div className="rentonzilliqa">
                 <Header />
-                <div><Router>
+                <div>
+                    <Router basename="/blockchain-developer-bootcamp-final-project/">
                     <main>
                         <Switch>
                             <Route path="/" exact>
@@ -68,7 +78,6 @@ const App: React.FC = () => {
                     </main>
                 )} */}
             </div>
-        </Web3ReactProvider>
     );
 };
 

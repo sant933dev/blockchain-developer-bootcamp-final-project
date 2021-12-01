@@ -25,6 +25,7 @@ module.exports = {
                 },
                 sky: colors.sky,
                 cyan: colors.cyan,
+                pink: colors.pink,
             },
             boxShadow: {
                 button: "0 3px 25px 0 rgba(0, 0, 0, 0.3)",

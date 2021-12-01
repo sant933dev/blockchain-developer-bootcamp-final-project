@@ -12,13 +12,15 @@ const deleteListingTransition = async (
 ) => {
     try {
         const accounts = await web3.eth.getAccounts();
-        await contract.methods.burn(id).send({from : accounts[0]}, function (err:any, res:any) {
-            if (err) {
-              console.log("An error occured", err)
-              return
-            }
-            console.log(res);
-            });
+        await contract.methods.burn(id).send({from : accounts[0]})
+        .on('transactionHash', function (hash: any) {
+            toast.loading("Deletion in process!");
+          })
+          .on('error', toast.error)
+          .then(function (value: any) {
+            toast.success("Deleted!");
+            window.location.href = "/listings";
+          });
 
         // transitionMessageAlert(zilPay, callTransition.ID, "Deleting listing");
     } catch (error) {

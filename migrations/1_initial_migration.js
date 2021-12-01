@@ -1,8 +1,8 @@
 const Migrations = artifacts.require("Migrations");
-const NFTCosmos = artifacts.require("NFTCosmos");
+const CosmoToken = artifacts.require("CosmoToken");
 
 
 module.exports = function (deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(NFTCosmos);
+  deployer.deploy(CosmoToken);
 };
