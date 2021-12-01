@@ -49,7 +49,7 @@ Deployed in Ropsten Test Network on address `0x2cAfaB9F8eC2605da6D04FBbbe5D8f025
   - development network id is 1337, remember to change it in Metamask as well!]
 
 
-**Please reach out to me to get your public key approved to test the contract.***Discord username : sant933#3578*** **
+**Please reach out to me to get your public key approved to test the contract.***Discord username : sant933#3578*** .**
 
 ## Frontend
   - npm install
