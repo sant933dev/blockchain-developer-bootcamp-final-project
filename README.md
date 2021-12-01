@@ -74,8 +74,9 @@ Deployed in Ropsten Test Network on address `0x2cAfaB9F8eC2605da6D04FBbbe5D8f025
 13. The smart contract computes the royalty amount based on the type and percent and transfers the token with appropriate ether transfers.
 
 
-
 ## Public Ethereum wallet for certification as NFT:
 0x77E832cA0d59B1791d5377856633795334ae07fF
 
 
+# Screencast
+https://www.loom.com/share/6614c24a030746c0a555dde57c7108d4
