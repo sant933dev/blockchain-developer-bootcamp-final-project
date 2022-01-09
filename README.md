@@ -75,7 +75,7 @@ Deployed in Ropsten Test Network on address `0x2cAfaB9F8eC2605da6D04FBbbe5D8f025
 
 
 ## Public Ethereum wallet for certification as NFT:
-0x77E832cA0d59B1791d5377856633795334ae07fF
+0xDB4EAA846D8Af38e510F55EEb0963abFA932ddf3
 
 
 # Screencast
